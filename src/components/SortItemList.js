@@ -2,15 +2,17 @@ import React, { PropTypes } from "react";
 import Item from "./Item";
 
 const SortItemList = ({ items, parrentId = 0 }) => {
-  let childrenItems = items.filter((item) => item.parent_id === parrentId);
+  const childrenItems = items.filter((item) => item.parent_id === parrentId);
   return (
-    <ul>
-      {childrenItems.map((item) => (
-        <Item key={item.id} label={item.label}>
-          <SortItemList items={items} parrentId={item.id} />
-        </Item>
-      ))}
-    </ul>
+    childrenItems.length > 0 && (
+      <ul>
+        {childrenItems.map((item) => (
+          <Item key={item.id} label={item.label}>
+            <SortItemList items={items} parrentId={item.id} />
+          </Item>
+        ))}
+      </ul>
+    )
   );
 };
 
